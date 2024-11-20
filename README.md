@@ -7,7 +7,7 @@ Team 13: Vinson, Jonathan, Brian, Connor, Fabricio, Kevin
 Put your name next to the task you want to complete. Take another unassigned task after you finish.
 Look at the CRC cards and class diagrams for more details. </br>
 1. Create User class interface and Define User class -- Vinson
-2. Create Schedule class interface and Define Schedule class
+2. Create Schedule class interface and Define Schedule class -- Jonathan
 3. Create Task class interface and Define Task class
 4. Create Recurring class interface and Define Recurring class
 5. Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule
