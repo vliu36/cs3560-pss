@@ -9,19 +9,21 @@ Look at the CRC cards and class diagrams for more details. </br>
 1. Create User class interface and Define User class -- Vinson
 2. Create Schedule class interface and Define Schedule class -- Jonathan
 3. Create Task class interface and Define Task class
-4. Create Recurring class interface and Define Recurring class
-5. Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule
-6. Implement exportSchedule() and importSchedule() methods in Schedule
-7. Implement checkOverlap() method in Schedule
-8. Implement all methods in Task
-9. Implement all methods in Recurring
-10. Implement login functionality
-11. Implement create a task functionality
-12. Implement view a task for one day, one week, one month, or view all functionality
-13. Implement delete a task functionality
-14. Implement edit a task functionality
-15. Implement write to file for one day, one week, one month, or write all functionality
-16. Implement delete a task functionality
-17. Implement read from file functionality
-18. Test Use Cases
-19. Make sure code follows diagrams and requirements
+4. Create Anti class interface and Define Anti class that inherits from Task
+5. Create Recurring class interface and Define Recurring class that inherits from Task
+6. Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule
+7. Implement exportSchedule() and importSchedule() methods in Schedule
+8. Implement checkOverlap() method in Schedule
+9. Implement all methods in Task
+10. Implement all methods in Anti
+11. Implement all methods in Recurring
+12. Implement login functionality
+13. Implement create a task functionality
+14. Implement view a task for one day, one week, one month, or view all functionality
+15. Implement delete a task functionality
+16. Implement edit a task functionality
+17. Implement write to file for one day, one week, one month, or write all functionality
+18. Implement delete a task functionality
+19. Implement read from file functionality
+20. Test Use Cases
+21. Make sure code follows diagrams and requirements
