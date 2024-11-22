@@ -6,8 +6,9 @@ Team 13:  Brian Nguyen, Vinson Liu, Jonathan Rodriguez, Kevin Salcedo, Connor Jo
 ## Tasks
 Put your name next to the task you want to complete. Take another unassigned task after you finish.
 Look at the CRC cards and class diagrams for more details. </br>
-1. Create User class interface and Define User class -- Vinson
-2. Create Schedule class interface and Define Schedule class -- Jonathan
+Add DONE when you are done. </br>
+1. DONE: Create User class interface and Define User class -- Vinson
+2. DONE: Create Schedule class interface and Define Schedule class -- Jonathan
 3. Create Task class interface and Define Task class
 4. Create Anti class interface and Define Anti class that inherits from Task
 5. Create Recurring class interface and Define Recurring class that inherits from Task
