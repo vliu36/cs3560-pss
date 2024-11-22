@@ -1,6 +1,6 @@
 package Interfaces;
 
-public class ScheduleInterface {
+public interface ScheduleInterface {
 
     boolean addTask(String name, String type, String startTime, double duration, String startDate);
 
