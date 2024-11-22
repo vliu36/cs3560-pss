@@ -9,7 +9,7 @@ Look at the CRC cards and class diagrams for more details. </br>
 Add DONE when you are done. </br>
 1. DONE: Create User class interface and Define User class -- Vinson
 2. DONE: Create Schedule class interface and Define Schedule class -- Jonathan
-3. Create Task class interface and Define Task class
+3. Create Task class interface and Define Task class -- Vinson
 4. Create Anti class interface and Define Anti class that inherits from Task
 5. Create Recurring class interface and Define Recurring class that inherits from Task
 6. Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule
