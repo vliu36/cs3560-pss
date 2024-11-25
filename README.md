@@ -12,7 +12,7 @@ Add DONE when you are done. </br>
 3. Create Task class interface and Define Task class -- Vinson
 4. Create Anti class interface and Define Anti class that inherits from Task -- Brian
 5. Create Recurring class interface and Define Recurring class that inherits from Task -- Brian
-6. Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule -- Brian
+6. DONE: Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule -- Jonathan
 7. Implement exportSchedule() and importSchedule() methods in Schedule
 8. Implement checkOverlap() method in Schedule
 9. Implement all methods in Task
