@@ -1,5 +1,8 @@
 import Interfaces.ScheduleInterface; // Import the interface.
 import java.io.*;
+import java.time.LocalDate; 
+import java.time.LocalTime; 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +47,23 @@ public class Schedule implements ScheduleInterface {
 
     @Override
     public boolean checkOverlap(String time, double duration, String date) {
-        // Implementation
-        return false;
+        LocalTime newTaskStartTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime newTaskEndTime = newTaskStartTime.plusMinutes((long)(duration * 60));
+        LocalDate newTaskDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        for (Task task : tasks) {
+            LocalTime existingTaskStartTime = LocalTime.parse(task.getStartTime(), DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime existingTaskEndTime = existingTaskStartTime.plusMinutes((long)(task.getDuration() * 60));
+            LocalDate existingTaskDate = LocalDate.parse(task.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            if (newTaskDate.equals(existingTaskDate)) {
+                if (newTaskStartTime.isBefore(existingTaskEndTime) && newTaskEndTime.isAfter(existingTaskStartTime)) {
+                    return true; // Overlap found
+                }
+            }
+        }
+        
+        return false; // No Overlap
     }
 
     @Override
