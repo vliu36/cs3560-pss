@@ -1,4 +1,5 @@
 import Interfaces.ScheduleInterface; // Import the interface.
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,14 +77,41 @@ public class Schedule implements ScheduleInterface {
 
     @Override
     public boolean exportSchedule(String fileName) {
-        // Implementation
-        return false;
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Task task : tasks) {
+                writer.write(task.getName() + "," + task.getType() + "," + task.getStartTime() + "," + task.getDuration() + "," + task.getStartDate());
+                writer.newLine();
+            }
+            System.out.println("Schedule exported successfully to " + fileName);
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error exporting schedule: " + e.getMessage());
+            return false;
+        }
     }
 
     @Override
     public boolean importSchedule(String fileName) {
-        // Implementation
-        return false;
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            task.clear(); //clear existing tasks before importing
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] taskDetails = line.split(",");
+                if (taskDetails.length == 5) {
+                    String name = taskDetails[0];
+                    String type = taskDetails[1];
+                    String startTime = taskDetails[2];
+                    double duration = Double.parseDouble(taskDetails[3]);
+                    String startDate = taskDetails[4];
+                    Task newTask = new Task(name, type, startTime, duration, startDate);
+                    tasks.add(newTask);
+                }
+            }
+            System.out.println("Schedule imported successfully from " + fileName);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     @Override
