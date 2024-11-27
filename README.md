@@ -16,7 +16,7 @@ Add DONE when you are done. </br>
 7. DONE: Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule -- Jonathan
 8. Implement exportSchedule() and importSchedule() methods in Schedule -- Kevin
 9. Implement checkOverlap() method in Schedule -- Kevin
-10. Implement all methods in Task
+10. Implement all methods in Task and Transient
 11. Implement all methods in Anti
 12. Implement all methods in Recurring
 13. Implement login functionality
