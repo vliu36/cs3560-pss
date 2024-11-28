@@ -14,14 +14,31 @@ public class Schedule implements ScheduleInterface {
 
     @Override
     public boolean addTask(String name, String type, String startTime, double duration, String startDate) {
-        // Implementation
-        return false;
+        Task newTask = new Task(name, type, startTime, duration, startDate);
+
+        // Check overlap
+        if(checkOverlap(newTask.getStartTime(), newTask.getDuration(), newTask.getStartDate())) {
+            System.out.println("Error: overlap w/ existing class");
+            return false; // Task not added
+        }
+
+        tasks.add(newTask); // Add task to the list
+        System.out.println("Task added successfully: " + name);
+        return true;
     }
 
     @Override
     public boolean removeTask(String name) {
-        // Implementation
-        return false;
+        for (Task task : tasks) {
+            if(task.getName().equals(name)) {
+                tasks.remove(task);
+                System.out.println("Task successfully removed.");
+                return true;
+            }
+        }
+
+        System.out.println("Error: Task not found.");
+        return false; // Task not found
     }
 
     @Override
@@ -32,14 +49,29 @@ public class Schedule implements ScheduleInterface {
 
     @Override
     public String viewTask(String name) {
-        // Implementation
-        return null;
+        for (Task task : tasks) {
+            if (task.getName().equals(name)) {
+                return task.toString();
+            }
+        }
+
+        return "Error: Task not found";
     }
 
     @Override
     public boolean editTask(String name, String newStartTime, double newDuration, String newStartDate) {
-        // Implementation
-        return false;
+        for (Task task : tasks) {
+            if (task.getName().equals(name)) {
+                task.setStartTime(newStartTime);
+                task.setDuration(newDuration);
+                task.setStartDate(newStartDate);
+                System.out.println("Task edited successfully: " + name);
+                return true;
+            }
+        }
+
+        System.out.println("Error: Task not found.");
+        return false; // Task not found
     }
 
     @Override
@@ -56,7 +88,13 @@ public class Schedule implements ScheduleInterface {
 
     @Override
     public String printSchedule(String timeFrame) {
-        // Implementation
-        return null;
+        StringBuilder scheduleOutput = new StringBuilder("Schedule (" + timeFrame + "):\n");
+
+        for (Task task : tasks) {
+            // Filtering tasks based on the time frame can be implemented later
+            scheduleOutput.append(task.toString()).append("\n");
+        }
+
+        return scheduleOutput.toString();
     }
 }
