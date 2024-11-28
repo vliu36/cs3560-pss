@@ -18,7 +18,6 @@ public interface TaskInterface {
         CANCELLATION
     }
 
-    public TaskInterface newTask(String name, Type type, double start, double duration, int date);
     public double getStartTime();
     public void setStartTime(double time);
     public double getDuration();

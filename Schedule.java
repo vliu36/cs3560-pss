@@ -13,8 +13,22 @@ public class Schedule implements ScheduleInterface {
     }
 
     @Override
-    public boolean addTask(String name, String type, String startTime, double duration, String startDate) {
-        Task newTask = new Task(name, type, startTime, duration, startDate);
+    public boolean addTask(String name, String type, double startTime, double duration, int startDate) {
+        Task newTask = null;
+        type = type.toLowerCase();
+        if (type.equals("cancellation")) {
+            newTask = new Anti(name, type, startTime, duration, startDate);
+        }
+        else if (type.equals("visit") || type.equals("shopping") || type.equals("appointment")) {
+            newTask = new Transient(name, type, startTime, duration, startDate);
+        }
+        else if (type.equals("class") || type.equals("study") || type.equals("sleep") ||
+                type.equals("exercise") || type.equals("work") || type.equals("meal")) {
+                    newTask = new Recurring(name, type, startTime, duration, startDate);
+        }
+        else {
+            return false;
+        }
 
         // Check overlap
         if(checkOverlap(newTask.getStartTime(), newTask.getDuration(), newTask.getStartDate())) {

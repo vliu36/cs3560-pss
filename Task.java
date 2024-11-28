@@ -1,4 +1,5 @@
 import Interfaces.TaskInterface;
+
 public class Task implements TaskInterface {
     protected String name;
     protected Type type;
@@ -6,10 +7,12 @@ public class Task implements TaskInterface {
     protected double duration;
     protected int startDate;
 
-    @Override
-    public TaskInterface newTask(String name, Type type, double start, double duration, int date) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'newTask'");
+    public Task(String name, String type, double start, double duration, int date) {
+        this.name = name;
+        this.type = Type.valueOf(type.toUpperCase());
+        this.startTime = start;
+        this.duration = duration;
+        this.startDate = date;
     }
     @Override
     public double getStartTime() {

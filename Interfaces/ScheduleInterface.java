@@ -2,7 +2,7 @@ package Interfaces;
 
 public interface ScheduleInterface {
 
-    boolean addTask(String name, String type, String startTime, double duration, String startDate);
+    boolean addTask(String name, String type, double startTime, double duration, int startDate);
 
     boolean removeTask(String name);
 

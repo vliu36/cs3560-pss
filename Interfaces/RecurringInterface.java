@@ -1,5 +1,5 @@
 package Interfaces;
 
-public class RecurringInterface {
+public interface RecurringInterface {
     
 }
