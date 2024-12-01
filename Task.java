@@ -1,5 +1,7 @@
 import Interfaces.TaskInterface;
 
+// Superclass for Transient, Anti, Recurring Tasks
+// Do not create pure objects of this base class, instead create instances of its subclasses and call this constructor in its constructor
 public class Task implements TaskInterface {
     protected String name;
     protected Type type;
@@ -7,64 +9,83 @@ public class Task implements TaskInterface {
     protected double duration;
     protected int startDate;
 
-    public Task(String name, String type, double start, double duration, int date) {
+    protected Task(String name, String type, double start, double duration, int date) {
         this.name = name;
         this.type = Type.valueOf(type.toUpperCase());
         this.startTime = start;
         this.duration = duration;
         this.startDate = date;
     }
-    @Override
+
     public double getStartTime() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getStartTime'");
+        return startTime;
     }
 
-    @Override
+
     public void setStartTime(double time) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setStartTime'");
+        this.startTime = time;
     }
 
-    @Override
+
     public double getDuration() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDuration'");
+        return duration;
     }
 
-    @Override
+
     public void setDuration(double time) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDuration'");
+        this.duration = time;
     }
 
-    @Override
+
     public int getStartDate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getStartDate'");
+        return startDate;
     }
 
-    @Override
+
     public void setStartDate(int date) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setStartDate'");
+        this.startDate = date;
     }
-    @Override
+
     public int getEndDate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEndDate'");
+        if (startTime + duration > 23.75) {
+            return startDate++;
+        }
+        else {
+            return startDate;
+        }
     }
 
-    @Override
     public double getEndTime() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEndTime'");
+        if (startTime + duration > 23.75) {
+            return (startTime + duration) - 24;
+        }
+        else {
+            return startTime + duration;
+        }
     }
 
-    @Override
     public void printTask() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'printTask'");
+        System.out.println(startDate + " " + formatTime(startTime) + " -- " + getEndDate() + " " + formatTime(getEndTime()) + " " + name + " " + type);
     }
-    
+            
+    private String formatTime(double time) {
+        String timeString = "";
+        boolean isAm = true;
+        if (time > 11.75) {
+            time -= 12;
+            isAm = false;
+        }
+        timeString += (int)time + ":";
+        timeString += (int)((time - (int)time) * 60);
+        if (timeString.length() < 4) {
+            timeString += "0";
+        }
+        if (isAm) {
+            timeString += "am";
+        }
+        else {
+            timeString += "pm";
+        }
+        return timeString;
+    }
 }
