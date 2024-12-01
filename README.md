@@ -16,16 +16,16 @@ Add DONE when you are done. </br>
 7. DONE: Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule -- Jonathan
 8. Implement exportSchedule() and importSchedule() methods in Schedule -- Kevin
 9. Implement checkOverlap() method in Schedule -- Kevin
-10. Implement all methods in Task and Transient -- Vinson
+10. DONE: Implement all methods in Task and Transient -- Vinson
 11. Implement all methods in Anti -- Connor
 12. Implement all methods in Recurring -- Connor
 13. Implement command line interface
-14. Implement create a task functionality
-15. Implement view a task for one day, one week, one month, or view all functionality
-16. Implement delete a task functionality
-17. Implement edit a task functionality
-18. Implement write to file for one day, one week, one month, or write all functionality
-19. Implement delete a task functionality
-20. Implement read from file functionality
+14. Implement create a task functionality from the command line
+15. Implement view a task for one day, one week, one month, or view all functionality from the command line
+16. Implement delete a task functionality from the command line
+17. Implement edit a task functionality from the command line
+18. Implement write to file for one day, one week, one month, or write all functionality from the command line
+19. Implement delete a task functionality from the command line
+20. Implement read from file functionality from the command line
 21. Test Use Cases
 22. Make sure code follows diagrams and requirements
