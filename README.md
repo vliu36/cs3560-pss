@@ -19,7 +19,7 @@ Add DONE when you are done. </br>
 10. DONE: Implement all methods in Task and Transient -- Vinson
 11. Implement all methods in Anti -- Connor
 12. Implement all methods in Recurring -- Connor
-13. Implement command line interface
+13. Implement command line interface -- Vinson
 14. Implement create a task functionality from the command line
 15. Implement view a task for one day, one week, one month, or view all functionality from the command line
 16. Implement delete a task functionality from the command line
