@@ -1,7 +1,7 @@
 # cs3560-pss
 PSS program for CS3560 Final</br>
 
-Team 13:  Brian Nguyen, Vinson Liu, Jonathan Rodriguez, Kevin Salcedo
+Team 13:  Brian Nguyen, Vinson Liu, Jonathan Rodriguez, Kevin Salcedo, Connor Jordan
 
 ## Tasks
 Put your name next to the task you want to complete. Take another unassigned task after you finish.
@@ -17,9 +17,9 @@ Add DONE when you are done. </br>
 8. Implement exportSchedule() and importSchedule() methods in Schedule -- Kevin
 9. Implement checkOverlap() method in Schedule -- Kevin
 10. Implement all methods in Task and Transient -- Vinson
-11. Implement all methods in Anti
-12. Implement all methods in Recurring
-13. Implement login functionality
+11. Implement all methods in Anti -- Connor
+12. Implement all methods in Recurring -- Connor
+13. Implement command line interface
 14. Implement create a task functionality
 15. Implement view a task for one day, one week, one month, or view all functionality
 16. Implement delete a task functionality
