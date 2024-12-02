@@ -10,15 +10,15 @@ Add DONE when you are done. </br>
 1. DONE: Establish program structure and requirements -- Vinson
 2. DONE: Create Schedule class interface and Define Schedule class -- Jonathan
 3. DONE: Create Task class interface and Define Task class -- Vinson
-4. Create Anti class interface and Define Anti class that inherits from Task -- Connor
+4. DONE (badly): Create Anti class interface and Define Anti class that inherits from Task -- Connor
 5. DONE: Create Transient class interface and Define Transient class -- Vinson
-6. Create Recurring class interface and Define Recurring class that inherits from Task -- Connor
+6. Done (badly): Create Recurring class interface and Define Recurring class that inherits from Task -- Connor
 7. DONE: Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule -- Jonathan
 8. Implement exportSchedule() and importSchedule() methods in Schedule -- Kevin
 9. Implement checkOverlap() method in Schedule -- Kevin
 10. DONE: Implement all methods in Task and Transient -- Vinson
-11. Implement all methods in Anti -- Connor
-12. Implement all methods in Recurring -- Connor
+11. Implement all methods in Anti
+12. Implement all methods in Recurring
 13. DONE: Implement command line interface stubs -- Vinson
 14. Implement create a task functionality from the command line
 15. Implement view a task for one day, one week, one month, or view all functionality from the command line
