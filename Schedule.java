@@ -1,7 +1,12 @@
 import Interfaces.ScheduleInterface; // Import the interface.
+import java.io.*;
+import java.time.LocalDate; 
+import java.time.LocalTime; 
+import java.time.format.DateTimeFormatter;
 import Interfaces.TaskInterface;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.*;
 
 public class Schedule implements ScheduleInterface {
 
@@ -32,8 +37,8 @@ public class Schedule implements ScheduleInterface {
         }
 
         // Check overlap
-        if(checkOverlap(newTask.getStartTime(), newTask.getDuration(), newTask.getStartDate())) {
-            System.out.println("Error: overlap w/ existing class");
+        if(checkOverlap(newTask)) {
+            System.out.println("Error: overlap with existing task");
             return false; // Task not added
         }
 
@@ -57,9 +62,24 @@ public class Schedule implements ScheduleInterface {
     }
 
     @Override
-    public boolean checkOverlap(String time, double duration, String date) {
-        // Implementation
-        return false;
+    public boolean checkOverlap(Task newTask) {
+        LocalTime newTaskStartTime = LocalTime.parse(newTask.getStartTime(), DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime newTaskEndTime = newTaskStartTime.plusMinutes((long)(newTask.getDuration() * 60));
+        LocalDate newTaskDate = LocalDate.parse(newTask.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        for (Task task : tasks) {
+            LocalTime existingTaskStartTime = LocalTime.parse(task.getStartTime(), DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime existingTaskEndTime = existingTaskStartTime.plusMinutes((long)(task.getDuration() * 60));
+            LocalDate existingTaskDate = LocalDate.parse(task.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            if (newTaskDate.equals(existingTaskDate)) {
+                if (newTaskStartTime.isBefore(existingTaskEndTime) && newTaskEndTime.isAfter(existingTaskStartTime)) {
+                    return true; // Overlap found
+                }
+            }
+        }
+        
+        return false; // No Overlap
     }
 
     @Override
@@ -91,14 +111,32 @@ public class Schedule implements ScheduleInterface {
 
     @Override
     public boolean exportSchedule(String fileName) {
-        // Implementation
-        return false;
+        Gson gson = new Gson();
+        try (Writer writer = new FileWriter(fileName)) {
+            gson.toJson(tasks, writer);
+            System.out.println("Schedule exported successfully to " + fileName);
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error exporting schedule: " + e.getMessage());
+            return false;
+        }
     }
 
     @Override
     public boolean importSchedule(String fileName) {
-        // Implementation
-        return false;
+        Gson gson = new Gson();
+        try (Reader reader = new FileReader(fileName)) {
+            tasks.clear(); // Clear existing tasks before importing
+            Task[] importedTasks = gson.fromJson(reader, Task[].class);
+            for (Task task : importedTasks) {
+                tasks.add(task);
+            }
+            System.out.println("Schedule imported successfully from " + fileName);
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error importing schedule: " + e.getMessage());
+            return false;
+        }
     }
 
     @Override
