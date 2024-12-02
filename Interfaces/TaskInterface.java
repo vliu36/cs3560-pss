@@ -18,6 +18,8 @@ public interface TaskInterface {
         CANCELLATION
     }
 
+    public String getName();
+    public void setName(String name);
     public double getStartTime();
     public void setStartTime(double time);
     public double getDuration();

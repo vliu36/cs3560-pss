@@ -6,11 +6,11 @@ public interface ScheduleInterface {
 
     boolean removeTask(String name);
 
-    boolean checkOverlap(String time, double duration, String date);
+    boolean checkOverlap(String time, double duration, int date);
 
     String viewTask(String name);
 
-    boolean editTask(String name, String newStartTime, double newDuration, String newStartDate);
+    boolean editTask(String name, double newStartTime, double newDuration, int newStartDate);
 
     boolean exportSchedule(String fileName);
 

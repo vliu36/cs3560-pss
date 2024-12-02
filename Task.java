@@ -1,7 +1,8 @@
 import Interfaces.TaskInterface;
 
 // Superclass for Transient, Anti, Recurring Tasks
-// Do not create pure objects of this base class, instead create instances of its subclasses and call this constructor in its constructor
+// Do not create pure instances of this base class, instead create instances of its subclasses and call this constructor 
+// in the subclass constructor
 public class Task implements TaskInterface {
     protected String name;
     protected Type type;
@@ -17,6 +18,14 @@ public class Task implements TaskInterface {
         this.startDate = date;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public double getStartTime() {
         return startTime;
     }

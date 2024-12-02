@@ -1,4 +1,5 @@
 import Interfaces.ScheduleInterface; // Import the interface.
+import Interfaces.TaskInterface;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class Schedule implements ScheduleInterface {
 
     @Override
     public boolean addTask(String name, String type, double startTime, double duration, int startDate) {
-        Task newTask = null;
+        TaskInterface newTask = null;
         type = type.toLowerCase();
         if (type.equals("cancellation")) {
             newTask = new Anti(name, type, startTime, duration, startDate);
@@ -73,7 +74,7 @@ public class Schedule implements ScheduleInterface {
     }
 
     @Override
-    public boolean editTask(String name, String newStartTime, double newDuration, String newStartDate) {
+    public boolean editTask(String name, double newStartTime, double newDuration, int newStartDate) {
         for (Task task : tasks) {
             if (task.getName().equals(name)) {
                 task.setStartTime(newStartTime);
