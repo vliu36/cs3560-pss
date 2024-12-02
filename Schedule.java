@@ -3,6 +3,7 @@ import java.io.*;
 import java.time.LocalDate; 
 import java.time.LocalTime; 
 import java.time.format.DateTimeFormatter;
+import Interfaces.TaskInterface;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.*;
@@ -18,8 +19,22 @@ public class Schedule implements ScheduleInterface {
     }
 
     @Override
-    public boolean addTask(String name, String type, String startTime, double duration, String startDate) {
-        Task newTask = new Task(name, type, startTime, duration, startDate);
+    public boolean addTask(String name, String type, double startTime, double duration, int startDate) {
+        TaskInterface newTask = null;
+        type = type.toLowerCase();
+        if (type.equals("cancellation")) {
+            newTask = new Anti(name, type, startTime, duration, startDate);
+        }
+        else if (type.equals("visit") || type.equals("shopping") || type.equals("appointment")) {
+            newTask = new Transient(name, type, startTime, duration, startDate);
+        }
+        else if (type.equals("class") || type.equals("study") || type.equals("sleep") ||
+                type.equals("exercise") || type.equals("work") || type.equals("meal")) {
+                    newTask = new Recurring(name, type, startTime, duration, startDate);
+        }
+        else {
+            return false;
+        }
 
         // Check overlap
         if(checkOverlap(newTask)) {
@@ -79,7 +94,7 @@ public class Schedule implements ScheduleInterface {
     }
 
     @Override
-    public boolean editTask(String name, String newStartTime, double newDuration, String newStartDate) {
+    public boolean editTask(String name, double newStartTime, double newDuration, int newStartDate) {
         for (Task task : tasks) {
             if (task.getName().equals(name)) {
                 task.setStartTime(newStartTime);
