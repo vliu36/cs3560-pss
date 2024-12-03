@@ -1,17 +1,13 @@
 import Interfaces.ScheduleInterface; // Import the interface.
 import java.io.*;
-import java.time.LocalDate; 
-import java.time.LocalTime; 
-import java.time.format.DateTimeFormatter;
 import Interfaces.TaskInterface;
 import java.util.ArrayList;
 import java.util.List;
-import com.google.gson.*;
 
 public class Schedule implements ScheduleInterface {
 
     // Attribute: List to store tasks.
-    private List<Task> tasks;
+    private List<TaskInterface> tasks;
 
     // Constructor: Initialize the list of tasks.
     public Schedule() {
@@ -30,7 +26,7 @@ public class Schedule implements ScheduleInterface {
         }
         else if (type.equals("class") || type.equals("study") || type.equals("sleep") ||
                 type.equals("exercise") || type.equals("work") || type.equals("meal")) {
-                    newTask = new Recurring(name, type, startTime, duration, startDate);
+                    newTask = new Recurring(name, type, startTime, duration, startDate, -1);
         }
         else {
             return false;
@@ -49,7 +45,7 @@ public class Schedule implements ScheduleInterface {
 
     @Override
     public boolean removeTask(String name) {
-        for (Task task : tasks) {
+        for (TaskInterface task : tasks) {
             if(task.getName().equals(name)) {
                 tasks.remove(task);
                 System.out.println("Task successfully removed.");
@@ -62,40 +58,40 @@ public class Schedule implements ScheduleInterface {
     }
 
     @Override
-    public boolean checkOverlap(Task newTask) {
-        LocalTime newTaskStartTime = LocalTime.parse(newTask.getStartTime(), DateTimeFormatter.ofPattern("HH:mm"));
-        LocalTime newTaskEndTime = newTaskStartTime.plusMinutes((long)(newTask.getDuration() * 60));
-        LocalDate newTaskDate = LocalDate.parse(newTask.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-        for (Task task : tasks) {
-            LocalTime existingTaskStartTime = LocalTime.parse(task.getStartTime(), DateTimeFormatter.ofPattern("HH:mm"));
-            LocalTime existingTaskEndTime = existingTaskStartTime.plusMinutes((long)(task.getDuration() * 60));
-            LocalDate existingTaskDate = LocalDate.parse(task.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-            if (newTaskDate.equals(existingTaskDate)) {
-                if (newTaskStartTime.isBefore(existingTaskEndTime) && newTaskEndTime.isAfter(existingTaskStartTime)) {
-                    return true; // Overlap found
+    public boolean checkOverlap(TaskInterface newTask) {
+        for (TaskInterface task : tasks) {
+            if (task instanceof Anti) {
+                continue;
+            }
+            if (task.getName().equals(newTask.getName())) {
+                return true;
+            }
+            if (Math.max(newTask.getStartDate(), task.getStartDate()) < Math.min(newTask.getEndDate(), task.getEndDate())) {
+                return true;
+            }
+            else if (newTask.getStartDate() == task.getStartDate()) {
+                if (Math.max(newTask.getStartTime(), task.getStartTime()) < Math.min(newTask.getEndTime(), task.getEndTime())) {
+                    return true;
                 }
             }
+
         }
-        
         return false; // No Overlap
     }
 
     @Override
-    public String viewTask(String name) {
-        for (Task task : tasks) {
+    public void viewTask(String name) {
+        for (TaskInterface task : tasks) {
             if (task.getName().equals(name)) {
-                return task.toString();
+                task.printTask();
+                break;
             }
         }
-
-        return "Error: Task not found";
     }
 
     @Override
     public boolean editTask(String name, double newStartTime, double newDuration, int newStartDate) {
-        for (Task task : tasks) {
+        for (TaskInterface task : tasks) {
             if (task.getName().equals(name)) {
                 task.setStartTime(newStartTime);
                 task.setDuration(newDuration);
@@ -109,45 +105,41 @@ public class Schedule implements ScheduleInterface {
         return false; // Task not found
     }
 
-    @Override
     public boolean exportSchedule(String fileName) {
-        Gson gson = new Gson();
-        try (Writer writer = new FileWriter(fileName)) {
-            gson.toJson(tasks, writer);
-            System.out.println("Schedule exported successfully to " + fileName);
-            return true;
-        } catch (IOException e) {
-            System.out.println("Error exporting schedule: " + e.getMessage());
-            return false;
-        }
+        return false;
+    //     Gson gson = new Gson();
+    //     try (Writer writer = new FileWriter(fileName)) {
+    //         gson.toJson(tasks, writer);
+    //         System.out.println("Schedule exported successfully to " + fileName);
+    //         return true;
+    //     } catch (IOException e) {
+    //         System.out.println("Error exporting schedule: " + e.getMessage());
+    //         return false;
+    //     }
     }
 
-    @Override
     public boolean importSchedule(String fileName) {
-        Gson gson = new Gson();
-        try (Reader reader = new FileReader(fileName)) {
-            tasks.clear(); // Clear existing tasks before importing
-            Task[] importedTasks = gson.fromJson(reader, Task[].class);
-            for (Task task : importedTasks) {
-                tasks.add(task);
-            }
-            System.out.println("Schedule imported successfully from " + fileName);
-            return true;
-        } catch (IOException e) {
-            System.out.println("Error importing schedule: " + e.getMessage());
-            return false;
-        }
+        return false;
+    //     Gson gson = new Gson();
+    //     try (Reader reader = new FileReader(fileName)) {
+    //         tasks.clear(); // Clear existing tasks before importing
+    //         Task[] importedTasks = gson.fromJson(reader, Task[].class);
+    //         for (Task task : importedTasks) {
+    //             tasks.add(task);
+    //         }
+    //         System.out.println("Schedule imported successfully from " + fileName);
+    //         return true;
+    //     } catch (IOException e) {
+    //         System.out.println("Error importing schedule: " + e.getMessage());
+    //         return false;
+    //     }
     }
 
     @Override
-    public String printSchedule(String timeFrame) {
-        StringBuilder scheduleOutput = new StringBuilder("Schedule (" + timeFrame + "):\n");
-
-        for (Task task : tasks) {
+    public void printSchedule(String timeFrame) {
+        for (TaskInterface task : tasks) {
             // Filtering tasks based on the time frame can be implemented later
-            scheduleOutput.append(task.toString()).append("\n");
+            task.printTask();
         }
-
-        return scheduleOutput.toString();
     }
 }
