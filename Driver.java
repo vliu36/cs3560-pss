@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import Interfaces.ScheduleInterface;
+import java.util.Scanner;
 
 public class Driver {
   public static void main(String[] args) {
@@ -13,7 +13,7 @@ public class Driver {
     Scanner scnr = new Scanner(System.in);
 
     // Loops the main menu until user exits
-    while (true) {
+    while (choice != 8) {
       printMenu();
       choice = validateInput(1, 8, scnr);
       scnr.nextLine();
@@ -161,8 +161,11 @@ public class Driver {
           break;
         }
       }
+      else if (choice == 8){
+        scnr.close();
+        break;
+      }
     }
-    scnr.close();
   }
 
   // Prints the main menu
