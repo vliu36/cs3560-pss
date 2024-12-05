@@ -23,29 +23,27 @@ public class Driver {
         System.out.println("2 - View a week");
         System.out.println("3 - View a month");
         System.out.println("4 - View all");
-        choice = validateInput(1, 4, scnr);
-        if (choice == 1) {
-          // TODO: Schedule print timeframe
+    
+        int timeframe = validateInput(1, 4, scnr);
+    
+        int startDate = -1;
+        if (timeframe != 4) {
+            System.out.print("\nEnter the start date (YYYY/MM/DD): ");
+            String dateInput = scnr.next();
+            startDate = parseDate(dateInput);
+            while (startDate == -1) {
+                System.out.print("Invalid date. Please re-enter (YYYY/MM/DD): ");
+                dateInput = scnr.next();
+                startDate = parseDate(dateInput);
+            }
         }
-        else if (choice == 2) {
-          // TODO: Schedule print timeframe
-        }
-        else if (choice == 3) {
-          // TODO: Schedule print timeframe
-        }
-        else {
-          System.out.println();
-          System.out.println("========= YOUR SCHEDULE =========");
-          schedule.printSchedule("");
-          System.out.println("=================================");
-        }
-
-        System.out.println();
-        scnr.nextLine();
-        System.out.println("Return to main menu? (y/n)");
-        name = scnr.nextLine().toLowerCase();
-        if (!name.equals("y")) {
-          break;
+    
+        schedule.viewTasksForTimeframe(timeframe, startDate);
+    
+        System.out.println("\nReturn to main menu? (y/n)");
+        String returnChoice = scnr.next().toLowerCase();
+        if (!returnChoice.equals("y")) {
+            break;
         }
       }
       else if (choice == 2) {
@@ -53,12 +51,15 @@ public class Driver {
         type = scnr.nextLine();
         System.out.print("\nEnter the name: ");
         name = scnr.nextLine();
-        System.out.print("\nEnter the start time (0.0 - 23.75): ");
-        startTime = validateInput(0, 23.75, scnr);
-        System.out.print("\nEnter the duration (0.0 - 23.75): ");
-        duration = validateInput(0, 23.75, scnr);
+        System.out.print("\nEnter the start time (24-hour format HH:MM): ");
+        String startTimeInput = scnr.nextLine();
+        startTime = parseTime(startTimeInput);
+        System.out.print("\nEnter the duration (hours and minutes HH:MM): ");
+        String durationInput = scnr.nextLine();
+        duration = parseDuration(durationInput);
         System.out.print("\nEnter the date (YYYY/MM/DD): ");
-        date = validateInput(0, 99991231, scnr);
+        String dateInput = scnr.next();
+        date = parseDate(dateInput);
         if (!schedule.addTask(name, type, startTime, duration, date)) {
           System.out.println("\nError: Task overlaps with another task");
         }
@@ -205,6 +206,75 @@ public class Driver {
       }
     }
   }
+
+  private static int parseDate(String dateInput) {
+    try {
+        // Validate the format YYYY/MM/DD
+        String[] parts = dateInput.split("/");
+        if (parts.length != 3) {
+            throw new IllegalArgumentException("Invalid date format. Use YYYY/MM/DD.");
+        }
+
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int day = Integer.parseInt(parts[2]);
+
+        // Validate ranges
+        if (month < 1 || month > 12) {
+            throw new IllegalArgumentException("Invalid month: " + month);
+        }
+        if (day < 1 || day > 31) {
+            throw new IllegalArgumentException("Invalid day: " + day);
+        }
+
+        // Convert the date to an integer format for storage
+        return (year * 10000) + (month * 100) + day;
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+        return -1; // Invalid date
+    }
+  }
+
+  private static double parseTime(String timeInput) {
+    try {
+        String[] parts = timeInput.split(":");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid time format. Use HH:MM.");
+        }
+        int hours = Integer.parseInt(parts[0]);
+        int minutes = Integer.parseInt(parts[1]);
+
+        if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+            throw new IllegalArgumentException("Time out of range.");
+        }
+
+        return hours + (minutes / 60.0);
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+        return -1; // Invalid time
+    }
+}
+
+private static double parseDuration(String durationInput) {
+    try {
+        String[] parts = durationInput.split(":");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid duration format. Use HH:MM.");
+        }
+        int hours = Integer.parseInt(parts[0]);
+        int minutes = Integer.parseInt(parts[1]);
+
+        if (hours < 0 || minutes < 0 || minutes > 59) {
+            throw new IllegalArgumentException("Duration out of range.");
+        }
+
+        return hours + (minutes / 60.0);
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+        return -1; // Invalid duration
+    }
+}
+
 
   // TODO: Implement read file functionality
   private static boolean readFile(String fpath) {

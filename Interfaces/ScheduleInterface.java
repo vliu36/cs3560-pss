@@ -17,5 +17,7 @@ public interface ScheduleInterface {
     boolean importSchedule(String fileName);
 
     void printSchedule(String timeFrame);
+
+    void viewTasksForTimeframe(int timeframe, int startDate);
     
 }
