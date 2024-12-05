@@ -21,7 +21,7 @@ Add DONE when you are done. </br>
 12. Implement all methods in Recurring
 13. DONE: Implement command line interface stubs -- Vinson
 14. DONE: Implement create a task functionality from the command  -- Vinson
-15. Implement view a task for one day, one week, one month, or view all functionality from the command line
+15. DONE: Implement view a task for one day, one week, one month, or view all functionality from the command line -- Jonathan
 16. Implement delete a task functionality from the command line
 17. Implement edit a task functionality from the command line
 18. Implement write to file for one day, one week, one month, or write all functionality from the command line
