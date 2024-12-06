@@ -27,5 +27,6 @@ Add DONE when you are done. </br>
 18. Implement write to file for one day, one week, one month, or write all functionality from the command line
 19. Implement delete a task functionality from the command line
 20. Implement read from file functionality from the command line
-21. Test Use Cases
-22. Make sure code follows diagrams and requirements
+21. Verify that Schedule validates all input (e.g., ensuring date is in correct format YYYY/MM/DD, ensuring Anti tasks are only created if they match a Recurring task, ensuring recurrances of tasks are readded to the schedule when an Anti task is deleted)
+22. Test Use Cases
+23. Make sure code follows diagrams and requirements
