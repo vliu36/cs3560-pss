@@ -17,8 +17,8 @@ Add DONE when you are done. </br>
 8. Implement exportSchedule() and importSchedule() methods in Schedule -- Kevin
 9. DONE: Implement checkOverlap() method in Schedule -- Vinson
 10. DONE: Implement all methods in Task and Transient -- Vinson
-11. Implement all methods in Anti
-12. Implement all methods in Recurring
+11. DONE: Implement all methods in Anti -- Vinson
+12. DONE: Implement all methods in Recurring -- Vinson
 13. DONE: Implement command line interface stubs -- Vinson
 14. DONE: Implement create a task functionality from the command  -- Vinson
 15. DONE: Implement view a task for one day, one week, one month, or view all functionality from the command line -- Jonathan
