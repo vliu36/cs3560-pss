@@ -162,10 +162,10 @@ public class Driver {
         }
       }
       else if (choice == 8){
-        scnr.close();
         break;
       }
     }
+    scnr.close();
   }
 
   // Prints the main menu

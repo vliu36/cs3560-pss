@@ -17,6 +17,14 @@ public class Task implements TaskInterface {
         this.duration = duration;
         this.startDate = date;
     }
+    protected Task(String name, Type type, double start, double duration, int date) {
+        this.name = name;
+        this.type = type;
+        this.startTime = start;
+        this.duration = duration;
+        this.startDate = date;
+    }
+
 
     public String getName() {
         return name;
