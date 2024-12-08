@@ -17,15 +17,16 @@ Add DONE when you are done. </br>
 8. Implement exportSchedule() and importSchedule() methods in Schedule -- Kevin
 9. DONE: Implement checkOverlap() method in Schedule -- Vinson
 10. DONE: Implement all methods in Task and Transient -- Vinson
-11. Implement all methods in Anti
-12. Implement all methods in Recurring
+11. DONE: Implement all methods in Anti -- Vinson
+12. DONE: Implement all methods in Recurring -- Vinson
 13. DONE: Implement command line interface stubs -- Vinson
 14. DONE: Implement create a task functionality from the command  -- Vinson
-15. Implement view a task for one day, one week, one month, or view all functionality from the command line
+15. DONE: Implement view a task for one day, one week, one month, or view all functionality from the command line -- Jonathan
 16. Implement delete a task functionality from the command line
 17. Implement edit a task functionality from the command line
 18. Implement write to file for one day, one week, one month, or write all functionality from the command line
 19. Implement delete a task functionality from the command line
 20. Implement read from file functionality from the command line
-21. Test Use Cases
-22. Make sure code follows diagrams and requirements
+21. Verify that Schedule validates all input (e.g., ensuring date is in correct format YYYY/MM/DD, ensuring Anti tasks are only created if they match a Recurring task, ensuring recurrances of tasks are readded to the schedule when an Anti task is deleted)
+22. Make and Test Use Cases
+23. Make sure code follows diagrams and requirements
