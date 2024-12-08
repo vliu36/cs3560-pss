@@ -1,8 +1,12 @@
 package Interfaces;
 
+import java.util.List;
+
 public interface ScheduleInterface {
 
     boolean addTask(String name, String type, double startTime, double duration, int startDate);
+
+    boolean addTask(String name, String type, double startTime, double duration, int startDate, int endDate, int frequency); // Overloaded for Recurring
 
     boolean removeTask(String name);
 
@@ -19,5 +23,7 @@ public interface ScheduleInterface {
     void printSchedule(String timeFrame);
 
     void viewTasksForTimeframe(int timeframe, int startDate);
-    
+
+    TaskInterface findTaskByName(String taskName);
+
 }

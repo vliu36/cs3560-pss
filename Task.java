@@ -1,6 +1,23 @@
 import Interfaces.TaskInterface;
 
+// Superclass for Transient, Anti, Recurring Tasks
+// Do not create pure instances of this base class, instead create instances of its subclasses and call this constructor 
+// in the subclass constructor
 public class Task implements TaskInterface {
+    public enum Type {
+        APPOINTMENT,
+        CANCELLATION,
+        RECURRING,
+        VISIT,
+        SHOPPING,
+        CLASS,
+        STUDY,
+        SLEEP,
+        EXERCISE,
+        WORK,
+        MEAL;
+    }
+    
     protected String name;
     protected Type type;
     protected double startTime;
@@ -14,6 +31,14 @@ public class Task implements TaskInterface {
         this.duration = duration;
         this.startDate = date;
     }
+    protected Task(String name, Type type, double start, double duration, int date) {
+        this.name = name;
+        this.type = type;
+        this.startTime = start;
+        this.duration = duration;
+        this.startDate = date;
+    }
+
 
     public String getName() {
         return name;
@@ -22,26 +47,31 @@ public class Task implements TaskInterface {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public double getStartTime() {
         return startTime;
     }
+
 
     public void setStartTime(double time) {
         this.startTime = time;
     }
 
+
     public double getDuration() {
         return duration;
     }
+
 
     public void setDuration(double time) {
         this.duration = time;
     }
 
+
     public int getStartDate() {
         return startDate;
     }
+
 
     public void setStartDate(int date) {
         this.startDate = date;
@@ -49,8 +79,9 @@ public class Task implements TaskInterface {
 
     public int getEndDate() {
         if (startTime + duration > 23.75) {
-            return startDate + 1; // Move to the next day
-        } else {
+            return startDate++;
+        }
+        else {
             return startDate;
         }
     }
@@ -58,7 +89,8 @@ public class Task implements TaskInterface {
     public double getEndTime() {
         if (startTime + duration > 23.75) {
             return (startTime + duration) - 24;
-        } else {
+        }
+        else {
             return startTime + duration;
         }
     }

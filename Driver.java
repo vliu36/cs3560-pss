@@ -1,4 +1,6 @@
 import Interfaces.ScheduleInterface;
+import Interfaces.TaskInterface;
+
 import java.util.Scanner;
 
 public class Driver {
@@ -23,57 +25,85 @@ public class Driver {
         System.out.println("2 - View a week");
         System.out.println("3 - View a month");
         System.out.println("4 - View all");
-    
+
         int timeframe = validateInput(1, 4, scnr);
-    
+
         int startDate = -1;
         if (timeframe != 4) {
-            System.out.print("\nEnter the start date (YYYY/MM/DD): ");
-            String dateInput = scnr.next();
+          System.out.print("\nEnter the start date (YYYY/MM/DD): ");
+          String dateInput = scnr.next();
+          startDate = parseDate(dateInput);
+          while (startDate == -1) {
+            System.out.print("Invalid date. Please re-enter (YYYY/MM/DD): ");
+            dateInput = scnr.next();
             startDate = parseDate(dateInput);
-            while (startDate == -1) {
-                System.out.print("Invalid date. Please re-enter (YYYY/MM/DD): ");
-                dateInput = scnr.next();
-                startDate = parseDate(dateInput);
-            }
+          }
         }
-    
+
         schedule.viewTasksForTimeframe(timeframe, startDate);
-    
+
         System.out.println("\nReturn to main menu? (y/n)");
         String returnChoice = scnr.next().toLowerCase();
         if (!returnChoice.equals("y")) {
-            break;
+          break;
         }
-      }
-      else if (choice == 2) {
-        System.out.print("\nEnter the task type: ");
+      } else if (choice == 2) {
+        System.out.print("\nEnter the task type (e.g., appointment, cancellation, recurring): ");
         type = scnr.nextLine();
         System.out.print("\nEnter the name: ");
         name = scnr.nextLine();
-        System.out.print("\nEnter the start time (24-hour format HH:MM): ");
-        String startTimeInput = scnr.nextLine();
-        startTime = parseTime(startTimeInput);
-        System.out.print("\nEnter the duration (hours and minutes HH:MM): ");
-        String durationInput = scnr.nextLine();
-        duration = parseDuration(durationInput);
-        System.out.print("\nEnter the date (YYYY/MM/DD): ");
-        String dateInput = scnr.next();
-        date = parseDate(dateInput);
-        if (!schedule.addTask(name, type, startTime, duration, date)) {
-          System.out.println("\nError: Task overlaps with another task");
+    
+        boolean taskAdded = false; // Flag for success/failure
+    
+        if (type.equalsIgnoreCase("cancellation")) {
+            System.out.print("Enter the name of the task to block: ");
+            String blockedTaskName = scnr.nextLine();
+    
+            TaskInterface blockedTask = schedule.findTaskByName(blockedTaskName);
+    
+            if (blockedTask == null) {
+                System.out.println("\nError: Task to block not found.");
+            } else {
+                taskAdded = schedule.addTask(name, type, blockedTask.getStartTime(), blockedTask.getDuration(), blockedTask.getStartDate());
+            }
+        } else if (type.equalsIgnoreCase("recurring")) {
+            System.out.print("\nEnter the start time (24-hour format HH:MM): ");
+            String startTimeInput = scnr.nextLine();
+            startTime = parseTime(startTimeInput);
+            System.out.print("\nEnter the duration (hours and minutes HH:MM): ");
+            String durationInput = scnr.nextLine();
+            duration = parseDuration(durationInput);
+            System.out.print("\nEnter the start date (YYYY/MM/DD): ");
+            String startDateInput = scnr.next();
+            int startDate = parseDate(startDateInput);
+            System.out.print("\nEnter the end date (YYYY/MM/DD): ");
+            String endDateInput = scnr.next();
+            int endDate = parseDate(endDateInput);
+            System.out.print("\nEnter the frequency (in days): ");
+            int frequency = scnr.nextInt();
+    
+            taskAdded = schedule.addTask(name, type, startTime, duration, startDate, endDate, frequency);
+        } else {
+            System.out.print("\nEnter the start time (24-hour format HH:MM): ");
+            String startTimeInput = scnr.nextLine();
+            startTime = parseTime(startTimeInput);
+            System.out.print("\nEnter the duration (hours and minutes HH:MM): ");
+            String durationInput = scnr.nextLine();
+            duration = parseDuration(durationInput);
+            System.out.print("\nEnter the date (YYYY/MM/DD): ");
+            String dateInput = scnr.next();
+            date = parseDate(dateInput);
+    
+            taskAdded = schedule.addTask(name, type, startTime, duration, date);
         }
-        //TODO: Implement functionality and make loop for invalid input
-
-        System.out.println();
-        scnr.nextLine();
-        System.out.println("Return to main menu? (y/n)");
-        name = scnr.nextLine().toLowerCase();
-        if (!name.equals("y")) {
-          break;
+    
+        // Print the success/failure message
+        if (taskAdded) {
+            System.out.println("Task added successfully: " + name);
+        } else {
+            System.out.println("Error: Could not add task.");
         }
-      }
-      else if (choice == 3) {
+      } else if (choice == 3) {
         System.out.print("Enter task name: ");
         name = scnr.nextLine();
         System.out.println();
@@ -85,93 +115,58 @@ public class Driver {
         if (!name.equals("y")) {
           break;
         }
-      }
-      else if (choice == 4) { // Delete a task
+      } else if (choice == 4) { // Delete a task
         System.out.print("Enter the task name to delete: ");
         name = scnr.nextLine();
         if (schedule.removeTask(name)) {
-            System.out.println("Task removed successfully.");
+          System.out.println("Task removed successfully.");
         } else {
-            System.out.println("Error: Task not found.");
+          System.out.println("Error: Task not found.");
         }
-    
+
         System.out.println("\nReturn to main menu? (y/n)");
         String returnChoice = scnr.next().toLowerCase();
         if (!returnChoice.equals("y")) {
-            break;
+          break;
         }
-      } 
-      else if (choice == 5) { // Edit a task
+      } else if (choice == 5) { // Edit a task
         System.out.print("Enter the task name to edit: ");
         name = scnr.nextLine();
-    
+
         // View the task to edit
         schedule.viewTask(name);
-    
+
         // Prompt user for new details
         System.out.print("\nEnter the new start time (24-hour format HH:MM): ");
         String startTimeInput = scnr.nextLine();
         double newStartTime = parseTime(startTimeInput);
-    
+
         System.out.print("\nEnter the new duration (hours and minutes HH:MM): ");
         String durationInput = scnr.nextLine();
         double newDuration = parseDuration(durationInput);
-    
+
         System.out.print("\nEnter the new start date (YYYY/MM/DD): ");
         String dateInput = scnr.nextLine();
         int newStartDate = parseDate(dateInput);
-    
+
         if (schedule.editTask(name, newStartTime, newDuration, newStartDate)) {
-            System.out.println("Task edited successfully.");
+          System.out.println("Task edited successfully.");
         } else {
-            System.out.println("Error: Task not found or overlap with existing task.");
+          System.out.println("Error: Task not found or overlap with existing task.");
         }
-    
+
         System.out.println("\nReturn to main menu? (y/n)");
         String returnChoice = scnr.next().toLowerCase();
         if (!returnChoice.equals("y")) {
-            break;
-        }
-      }
-      else if (choice == 6) {
-        System.out.println("Please select a timeframe: ");
-        System.out.println("1 - Export a day");
-        System.out.println("2 - Export a week");
-        System.out.println("3 - Export a month");
-        System.out.println("4 - Export all");
-        choice = validateInput(1, 4, scnr);
-        //TODO: Implement functionality
-
-        System.out.println();
-        scnr.nextLine();
-        System.out.println("Return to main menu? (y/n)");
-        name = scnr.nextLine().toLowerCase();
-        if (!name.equals("y")) {
           break;
         }
-      }
-      else if (choice == 7) {
-        System.out.println("Enter file path: ");
-        name = scnr.nextLine();
-        readFile(name);
-        //TODO: Implement functionality
-
-        System.out.println();
-        scnr.nextLine();
-        System.out.println("Return to main menu? (y/n)");
-        name = scnr.nextLine().toLowerCase();
-        if (!name.equals("y")) {
-          break;
-        }
-      }
-      else if (choice == 8){
+      } else if (choice == 8) {
         scnr.close();
         break;
       }
     }
   }
 
-  // Prints the main menu
   private static void printMenu() {
     System.out.println("========= PERSONAL SCHEDULING SYSTEM =========");
     System.out.println("1 - View Schedule");

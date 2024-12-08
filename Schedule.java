@@ -1,3 +1,4 @@
+import Interfaces.RecurringInterface;
 import Interfaces.ScheduleInterface; // Import the interface.
 import java.io.*;
 import Interfaces.TaskInterface;
@@ -16,32 +17,50 @@ public class Schedule implements ScheduleInterface {
 
     @Override
     public boolean addTask(String name, String type, double startTime, double duration, int startDate) {
-        TaskInterface newTask = null;
-        type = type.toLowerCase();
-        if (type.equals("cancellation")) {
-            newTask = new Anti(name, type, startTime, duration, startDate);
-        }
-        else if (type.equals("visit") || type.equals("shopping") || type.equals("appointment")) {
+        TaskInterface newTask;
+
+        if (type.equalsIgnoreCase("cancellation")) {
+            // Create Anti-task directly using provided parameters
+            newTask = new Anti(name, type, startTime, duration, startDate, null);
+
+            // Remove the blocked task
+            tasks.removeIf(task -> task.getName().equalsIgnoreCase(name));
+        } else {
+            // Handle other task types (e.g., Transient)
             newTask = new Transient(name, type, startTime, duration, startDate);
         }
-        else if (type.equals("class") || type.equals("study") || type.equals("sleep") ||
-                type.equals("exercise") || type.equals("work") || type.equals("meal")) {
-                    newTask = new Recurring(name, type, startTime, duration, startDate, -1);
-        }
-        else {
+
+        tasks.add(newTask);
+        return true;
+    }
+
+
+    @Override
+    public boolean addTask(String name, String type, double startTime, double duration, int startDate, int endDate, int frequency) {
+        // Handle Recurring tasks
+        if (!type.equalsIgnoreCase("recurring")) {
+            System.out.println("Error: Invalid task type for recurring tasks.");
             return false;
         }
 
-        // Check overlap
-        if(checkOverlap(newTask)) {
-            System.out.println("Error: overlap with existing task");
-            return false; // Task not added
+        TaskInterface newTask = new Recurring(name, type, startTime, duration, startDate, endDate, frequency);
+
+        Recurring recurringTask = (Recurring) newTask;
+        for (TaskInterface occurrence : recurringTask.getOccurrances()) {
+            if (checkOverlap(occurrence)) {
+                System.out.println("Error: Recurring task occurrence overlaps with existing tasks.");
+                return false; // Abort if any occurrence overlaps
+            }
         }
 
-        tasks.add(newTask); // Add task to the list
-        System.out.println("Task added successfully: " + name);
+        // Add occurrences to the task list
+        for (TaskInterface occurrence : recurringTask.getOccurrances()) {
+            tasks.add(occurrence);
+        }
+
         return true;
     }
+
 
     @Override
     public boolean removeTask(String name) {
@@ -60,24 +79,18 @@ public class Schedule implements ScheduleInterface {
     @Override
     public boolean checkOverlap(TaskInterface newTask) {
         for (TaskInterface task : tasks) {
-            if (task instanceof Anti) {
-                continue;
-            }
-            if (task.getName().equals(newTask.getName())) {
-                return true;
-            }
-            if (Math.max(newTask.getStartDate(), task.getStartDate()) < Math.min(newTask.getEndDate(), task.getEndDate())) {
-                return true;
-            }
-            else if (newTask.getStartDate() == task.getStartDate()) {
+            // Skip Anti-tasks during overlap checks
+            if (task instanceof Anti) continue;
+
+            if (Math.max(newTask.getStartDate(), task.getStartDate()) <= Math.min(newTask.getEndDate(), task.getEndDate())) {
                 if (Math.max(newTask.getStartTime(), task.getStartTime()) < Math.min(newTask.getEndTime(), task.getEndTime())) {
-                    return true;
+                    return true; // Overlapping times
                 }
             }
-
         }
-        return false; // No Overlap
+        return false; // No overlap
     }
+
 
     @Override
     public void viewTask(String name) {
@@ -235,6 +248,42 @@ public class Schedule implements ScheduleInterface {
         return java.time.LocalDate.of(year, month, day);
     }
     
+    private int parseDate(String dateInput) {
+        try {
+            // Validate the format YYYY/MM/DD
+            String[] parts = dateInput.split("/");
+            if (parts.length != 3) {
+                throw new IllegalArgumentException("Invalid date format. Use YYYY/MM/DD.");
+            }
     
+            int year = Integer.parseInt(parts[0]);
+            int month = Integer.parseInt(parts[1]);
+            int day = Integer.parseInt(parts[2]);
+    
+            // Validate ranges
+            if (month < 1 || month > 12) {
+                throw new IllegalArgumentException("Invalid month: " + month);
+            }
+            if (day < 1 || day > 31) {
+                throw new IllegalArgumentException("Invalid day: " + day);
+            }
+    
+            // Convert the date to an integer format for storage
+            return (year * 10000) + (month * 100) + day;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return -1; // Invalid date
+        }
+    }
+    
+    public TaskInterface findTaskByName(String taskName) {
+    for (TaskInterface task : tasks) {
+        if (task.getName().equalsIgnoreCase(taskName)) {
+            return task; // Return the found task
+        }
+    }
+    return null; // Return null if no task is found
+}
+
     
 }
