@@ -137,9 +137,104 @@ public class Schedule implements ScheduleInterface {
 
     @Override
     public void printSchedule(String timeFrame) {
+        tasks.sort((task1, task2) -> {
+            int dateComparison = Integer.compare(task1.getStartDate(), task2.getStartDate());
+            if (dateComparison == 0) { // If dates are the same, compare times
+                return Double.compare(task1.getStartTime(), task2.getStartTime());
+            }
+            return dateComparison;
+        });
+
+        System.out.println("========= SCHEDULE =========");
+
+        // Get the current date in YYYYMMDD format
+        int today = getCurrentDate();
+
         for (TaskInterface task : tasks) {
-            // Filtering tasks based on the time frame can be implemented later
-            task.printTask();
+            boolean shouldPrint = false;
+
+            switch (timeFrame.toLowerCase()) {
+                case "day":
+                    shouldPrint = (task.getStartDate() == today);
+                    break;
+                case "week":
+                    shouldPrint = (task.getStartDate() >= today && task.getStartDate() <= today + 6);
+                    break;
+                case "month":
+                    int currentMonth = today / 100; // Extract YYYYMM
+                    int taskMonth = task.getStartDate() / 100;
+                    shouldPrint = (currentMonth == taskMonth);
+                    break;
+                case "all":
+                    shouldPrint = true;
+                    break;
+                default:
+                    System.out.println("Invalid timeframe. Showing all tasks.");
+                    shouldPrint = true;
+            }
+
+            if (shouldPrint) {
+                task.printTask();
+            }
         }
+
+        System.out.println("============================");
     }
+
+    private int getCurrentDate() {
+        // Use java.time to get the current date in YYYYMMDD format
+        java.time.LocalDate currentDate = java.time.LocalDate.now();
+        return currentDate.getYear() * 10000 + currentDate.getMonthValue() * 100 + currentDate.getDayOfMonth();
+    }
+
+    public void viewTasksForTimeframe(int timeframe, int startDate) {
+        System.out.println("\n========= SCHEDULE =========");
+    
+        for (TaskInterface task : tasks) {
+            int taskStartDate = task.getStartDate();
+    
+            // Filter tasks based on the timeframe
+            if ((timeframe == 1 && taskStartDate == startDate) || // View a day
+                (timeframe == 2 && isWithinWeek(startDate, taskStartDate)) || // View a week
+                (timeframe == 3 && isWithinMonth(startDate, taskStartDate)) || // View a month
+                (timeframe == 4)) { // View all
+                task.printTask();
+            }
+        }
+    
+        System.out.println("============================");
+    }
+    
+    private boolean isWithinWeek(int startDate, int taskStartDate) {
+        // Parse startDate and taskStartDate to LocalDate
+        java.time.LocalDate start = parseDateToLocalDate(startDate);
+        java.time.LocalDate taskStart = parseDateToLocalDate(taskStartDate);
+    
+        // Define the end of the week (7 days including the start day)
+        java.time.LocalDate weekEnd = start.plusDays(6);
+    
+        // Check if taskStart falls within the week
+        return (!taskStart.isBefore(start)) && (!taskStart.isAfter(weekEnd));
+    }
+    
+    
+    
+
+    private boolean isWithinMonth(int startDate, int taskStartDate) {
+        java.time.LocalDate start = parseDateToLocalDate(startDate);
+        java.time.LocalDate taskStart = parseDateToLocalDate(taskStartDate);
+    
+        return start.getYear() == taskStart.getYear() && start.getMonth() == taskStart.getMonth();
+    }
+
+    private java.time.LocalDate parseDateToLocalDate(int date) {
+        int year = date / 10000;
+        int month = (date % 10000) / 100;
+        int day = date % 100;
+    
+        return java.time.LocalDate.of(year, month, day);
+    }
+    
+    
+    
 }
