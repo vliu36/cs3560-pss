@@ -86,49 +86,51 @@ public class Driver {
           break;
         }
       }
-      else if (choice == 4) {
-        System.out.print("Enter task name: ");
+      else if (choice == 4) { // Delete a task
+        System.out.print("Enter the task name to delete: ");
         name = scnr.nextLine();
-        System.out.println();
         if (schedule.removeTask(name)) {
-          System.out.println("Task removed successfully");
+            System.out.println("Task removed successfully.");
+        } else {
+            System.out.println("Error: Task not found.");
         }
-        else {
-          System.out.println("Error: Task not found");
+    
+        System.out.println("\nReturn to main menu? (y/n)");
+        String returnChoice = scnr.next().toLowerCase();
+        if (!returnChoice.equals("y")) {
+            break;
         }
-        //TODO: Implement functionality
-
-        System.out.println();
-        scnr.nextLine();
-        System.out.println("Return to main menu? (y/n)");
-        name = scnr.nextLine().toLowerCase();
-        if (!name.equals("y")) {
-          break;
-        }
-      }
-      else if (choice == 5) {
-        System.out.print("Enter task name: ");
+      } 
+      else if (choice == 5) { // Edit a task
+        System.out.print("Enter the task name to edit: ");
         name = scnr.nextLine();
-        System.out.println();
-
+    
+        // View the task to edit
         schedule.viewTask(name);
-        System.out.print("\nEnter the new start time (0.0 - 23.75): ");
-        startTime = scnr.nextDouble();
-        System.out.print("\nEnter the new duration (0.0 - 23.75): ");
-        duration = scnr.nextDouble();
-        System.out.print("\nEnter the new date (YYYY/MM/DD): ");
-        date = scnr.nextInt();
-        if (!schedule.editTask(name, startTime, duration, date)) {
-          System.out.println("\nError: Task overlaps with another task");
+    
+        // Prompt user for new details
+        System.out.print("\nEnter the new start time (24-hour format HH:MM): ");
+        String startTimeInput = scnr.nextLine();
+        double newStartTime = parseTime(startTimeInput);
+    
+        System.out.print("\nEnter the new duration (hours and minutes HH:MM): ");
+        String durationInput = scnr.nextLine();
+        double newDuration = parseDuration(durationInput);
+    
+        System.out.print("\nEnter the new start date (YYYY/MM/DD): ");
+        String dateInput = scnr.nextLine();
+        int newStartDate = parseDate(dateInput);
+    
+        if (schedule.editTask(name, newStartTime, newDuration, newStartDate)) {
+            System.out.println("Task edited successfully.");
+        } else {
+            System.out.println("Error: Task not found or overlap with existing task.");
         }
-        //TODO: Implement invalid input loop
-
-        System.out.println();
-        scnr.nextLine();
-        System.out.println("Return to main menu? (y/n)");
-        name = scnr.nextLine().toLowerCase();
-        if (!name.equals("y")) {
-          break;
+    
+        System.out.println("\nReturn to main menu? (y/n)");
+        String returnChoice = scnr.next().toLowerCase();
+        if (!returnChoice.equals("y")) {
+            break;
         }
       }
       else if (choice == 6) {
