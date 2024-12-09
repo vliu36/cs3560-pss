@@ -11,8 +11,10 @@ public class Recurring extends Task implements RecurringInterface {
         super(name, type, start, duration, date);
         this.frequency = frequency;
         this.recurringEndDate = recurringEndDate;
+        this.tasks = new ArrayList<>(); // Initialize the tasks list
         generateOccurrances();
-    } 
+    }
+    
     public int getFrequency() {
         return frequency;
     }
@@ -34,14 +36,33 @@ public class Recurring extends Task implements RecurringInterface {
     }
 
     private void generateOccurrances() {
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
+    
         int currDate = startDate;
         while (currDate <= recurringEndDate) {
-            tasks.add(new Transient(name, type, startTime, duration, currDate));
+            tasks.add(new Transient(name, type.toString(), startTime, duration, currDate));
+    
+            // Increment by frequency (in days)
             currDate += frequency;
-            if (startDate + 30 == currDate) {
-                currDate -= 30;
-                currDate += 100;
+    
+            // Handle month overflow (e.g., December 31 to January 1)
+            int year = currDate / 10000;
+            int month = (currDate % 10000) / 100;
+            int day = currDate % 100;
+    
+            if (day > 31) {
+                day -= 31;
+                month++;
             }
+            if (month > 12) {
+                month -= 12;
+                year++;
+            }
+    
+            currDate = (year * 10000) + (month * 100) + day;
         }
     }
+    
 }

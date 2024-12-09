@@ -4,6 +4,20 @@ import Interfaces.TaskInterface;
 // Do not create pure instances of this base class, instead create instances of its subclasses and call this constructor 
 // in the subclass constructor
 public class Task implements TaskInterface {
+    public enum Type {
+        APPOINTMENT,
+        CANCELLATION,
+        RECURRING,
+        VISIT,
+        SHOPPING,
+        CLASS,
+        STUDY,
+        SLEEP,
+        EXERCISE,
+        WORK,
+        MEAL;
+    }
+    
     protected String name;
     protected Type type;
     protected double startTime;
@@ -82,27 +96,38 @@ public class Task implements TaskInterface {
     }
 
     public void printTask() {
-        System.out.println(startDate + " " + formatTime(startTime) + " -- " + getEndDate() + " " + formatTime(getEndTime()) + " " + name + " " + type);
+        String startDateFormatted = String.format("%04d/%02d/%02d", startDate / 10000, (startDate % 10000) / 100, startDate % 100);
+        System.out.printf("%s %s -- %s %s %s %s%n",
+            startDateFormatted,
+            formatTime(startTime),
+            getFormattedEndDate(),
+            formatTime(getEndTime()),
+            name.toUpperCase(),
+            type.toString().toUpperCase()
+        );
     }
-            
+
+    public String getFormattedEndDate() {
+        int year = getEndDate() / 10000;
+        int month = (getEndDate() % 10000) / 100;
+        int day = getEndDate() % 100;
+        return String.format("%04d/%02d/%02d", year, month, day);
+    }
+
     private String formatTime(double time) {
-        String timeString = "";
-        boolean isAm = true;
-        if (time > 11.75) {
-            time -= 12;
+        int hours = (int) time;
+        int minutes = (int) ((time - hours) * 60);
+        boolean isAm = hours < 12;
+
+        if (hours == 0) {
+            hours = 12; // Midnight
+        } else if (hours >= 12) {
+            if (hours > 12) {
+                hours -= 12; // Convert to 12-hour format
+            }
             isAm = false;
         }
-        timeString += (int)time + ":";
-        timeString += (int)((time - (int)time) * 60);
-        if (timeString.length() < 4) {
-            timeString += "0";
-        }
-        if (isAm) {
-            timeString += "am";
-        }
-        else {
-            timeString += "pm";
-        }
-        return timeString;
+
+        return String.format("%02d:%02d%s", hours, minutes, isAm ? "am" : "pm");
     }
 }
