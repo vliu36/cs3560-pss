@@ -12,4 +12,3 @@ public class Anti extends Task implements AntiInterface {
         return blockedTask;
     }
 }
-
