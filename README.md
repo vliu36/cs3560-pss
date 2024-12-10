@@ -22,8 +22,8 @@ Add DONE when you are done. </br>
 13. DONE: Implement command line interface stubs -- Vinson
 14. DONE: Implement create a task functionality from the command  -- Vinson
 15. DONE: Implement view a task for one day, one week, one month, or view all functionality from the command line -- Jonathan
-16. Implement delete a task functionality from the command line
-17. Implement edit a task functionality from the command line
+16. DONE: Implement delete a task functionality from the command line -- Jonathan
+17. DONE: Implement edit a task functionality from the command line -- Jonathan
 18. Implement write to file for one day, one week, one month, or write all functionality from the command line
 19. Implement delete a task functionality from the command line
 20. Implement read from file functionality from the command line
