@@ -1,7 +1,7 @@
 # cs3560-pss
 PSS program for CS3560 Final</br>
 
-Team 13:  Brian Nguyen, Vinson Liu, Jonathan Rodriguez, Kevin Salcedo, Connor Jordan
+Team 13:  Brian Nguyen, Vinson Liu, Jonathan Rodriguez, Kevin Salcedo, Connor Jordan, Fabricio Junqueira
 
 ## Tasks
 Put your name next to the task you want to complete. Take another unassigned task after you finish.
