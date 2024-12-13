@@ -273,15 +273,63 @@ private static double parseDuration(String durationInput) {
     }
 }
 
+ // Reads a schedule from a file
+private static boolean readFile(String fpath) {
+    try {
+        File file = new File(fpath);
+        Scanner fileScanner = new Scanner(file);
+        
+        while (fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine();
+            // Assuming the file contains tasks in a specific format, e.g., name,type,startTime,duration,date
+            String[] taskDetails = line.split(",");
+            String name = taskDetails[0];
+            String type = taskDetails[1];
+            double startTime = Double.parseDouble(taskDetails[2]);
+            double duration = Double.parseDouble(taskDetails[3]);
+            int date = Integer.parseInt(taskDetails[4]);
 
-  // TODO: Implement read file functionality
-  private static boolean readFile(String fpath) {
-    return false;
-  }
-
-  // TODO: Implement write file functionality
-  private static boolean writeFile(String fpath) {
-
-    return false;
-  }
+            // You may need additional parsing for task types with different attributes
+            // Example for recurring tasks:
+            if (type.equalsIgnoreCase("recurring")) {
+                int endDate = Integer.parseInt(taskDetails[5]);
+                int frequency = Integer.parseInt(taskDetails[6]);
+                schedule.addTask(name, type, startTime, duration, date, endDate, frequency);
+            } else {
+                schedule.addTask(name, type, startTime, duration, date);
+            }
+        }
+        
+        fileScanner.close();
+        return true;
+    } catch (FileNotFoundException e) {
+        System.out.println("Error: File not found.");
+        return false;
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+        return false;
+    }
 }
+  
+// Writes the schedule to a file
+private static boolean writeFile(String fpath) {
+    try {
+        FileWriter writer = new FileWriter(fpath);
+        List<TaskInterface> tasks = schedule.getAllTasks();
+
+        for (TaskInterface task : tasks) {
+            writer.write(task.getName() + "," + task.getType() + "," + task.getStartTime() + "," 
+                        + task.getDuration() + "," + task.getStartDate());
+            
+            if (task.getType().equalsIgnoreCase("recurring")) {
+                writer.write("," + task.getEndDate() + "," + task.getFrequency());
+            }
+            writer.write("\n");
+        }
+
+        writer.close();
+        return true;
+    } catch (IOException e) {
+        System.out.println("Error: Unable to write to file.");
+        return false;
+    }
