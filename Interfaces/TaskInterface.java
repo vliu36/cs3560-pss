@@ -29,4 +29,5 @@ public interface TaskInterface {
     public int getEndDate();
     public double getEndTime();
     public void printTask();
+    public String toJSON();
 }

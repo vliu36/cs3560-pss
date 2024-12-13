@@ -125,53 +125,14 @@ public class Schedule implements ScheduleInterface {
         json.append("[\n");
         for (int i = 0; i < tasks.size(); i++) {
             TaskInterface task = tasks.get(i);
-            json.append("   {\n");
-            if (task.getClass() == Recurring.class) {
-                Recurring recurring = (Recurring)tasks.get(i);
-                json.append("       \"name\": \"" + recurring.getName() + "\",\n");
-                //json.append("\"type\": " + recurring.getType());
-                json.append("       \"startDate\": \"" + recurring.getStartDate() + "\",\n");
-                json.append("       \"startTime\": \"" + recurring.getStartTime() + "\",\n");
-                json.append("       \"duration\": \"" + recurring.getDuration() + "\",\n");
-                json.append("       \"endDate\": \"" + recurring.getEndDate() + "\",\n");
-                if (i < tasks.size() - 1) {
-                    json.append("       \"frequency\": \"" + recurring.getFrequency() + "\"\n");
-                }
-                else {
-                    json.append("       \"frequency\": \"" + recurring.getFrequency() + "\",\n");
-                }
-            }
-            else {
-                json.append("       \"name\": \"" + task.getName() + "\",\n");
-                //json.append("\"type\": " + task.type());
-                json.append("       \"date\": \"" + task.getStartDate() + "\",\n");
-                json.append("       \"startTime\": \"" + task.getStartTime() + "\",\n");
-                if (i < tasks.size() - 1) {
-                    json.append("       \"duration\": \"" + task.getDuration() + "\"\n");
-                }
-                else {
-                    json.append("       \"duration\": \"" + task.getDuration() + "\",\n");
-                }
-            }
+            json.append(task.toJSON());
             if (i < tasks.size() - 1) {
-                json.append("   },\n");
+                json.append(",\n");
             }
             else {
-                json.append("   }\n");
+                json.append("\n");
             }
-            
-        
-         /*Gson gson = new Gson();
-         try (Writer writer = new FileWriter(fileName)) {
-            gson.toJson(tasks, writer);
-             System.out.println("Schedule exported successfully to " + fileName);
-            return true;
-         } catch (IOException e) {
-             System.out.println("Error exporting schedule: " + e.getMessage());
-             return false;
-         }*/
 
-        
         }
         json.append("]");
         try (FileWriter writer = new FileWriter(fileName)) { 
@@ -340,4 +301,3 @@ public class Schedule implements ScheduleInterface {
 
     
 }
-
