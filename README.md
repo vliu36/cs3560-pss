@@ -25,8 +25,8 @@ Add DONE when you are done. </br>
 16. DONE: Implement view a task for one day, one week, one month, or view all functionality from the command line -- Jonathan
 17. DONE: Implement delete a task functionality from the command line -- Jonathan
 18. DONE: Implement edit a task functionality from the command line -- Jonathan
-19. Implement write to file for one day, one week, one month, or write all functionality from the command line
-20. Implement read from file functionality from the command line
+19. DONE: Implement write to file for one day, one week, one month, or write all functionality from the command line -- Kevin
+20. DONE: Implement read from file functionality from the command line -- Kevin
 21. Verify that Schedule validates all input (e.g., ensuring date is in correct format YYYY/MM/DD, ensuring Anti tasks are only created if they match a Recurring task, ensuring recurrances of tasks are readded to the schedule when an Anti task is deleted) -- Fabricio
 22. Make and Test Use Cases -- Brian/Fabricio
 23. Make sure code follows diagrams and requirements -- Brian/Fabricio
