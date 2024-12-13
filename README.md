@@ -14,19 +14,20 @@ Add DONE when you are done. </br>
 5. DONE: Create Transient class interface and Define Transient class -- Vinson
 6. Done (badly): Create Recurring class interface and Define Recurring class that inherits from Task -- Connor
 7. DONE: Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule -- Jonathan
-8. Implement exportSchedule() and importSchedule() methods in Schedule -- Kevin
-9. DONE: Implement checkOverlap() method in Schedule -- Vinson
-10. DONE: Implement all methods in Task and Transient -- Vinson
-11. DONE: Implement all methods in Anti -- Vinson
-12. DONE: Implement all methods in Recurring -- Vinson
-13. DONE: Implement command line interface stubs -- Vinson
-14. DONE: Implement create a task functionality from the command  -- Vinson
-15. DONE: Implement view a task for one day, one week, one month, or view all functionality from the command line -- Jonathan
-16. DONE: Implement delete a task functionality from the command line -- Jonathan
-17. DONE: Implement edit a task functionality from the command line -- Jonathan
-18. Implement write to file for one day, one week, one month, or write all functionality from the command line
-19. Implement delete a task functionality from the command line
-20. Implement read from file functionality from the command line
-21. Verify that Schedule validates all input (e.g., ensuring date is in correct format YYYY/MM/DD, ensuring Anti tasks are only created if they match a Recurring task, ensuring recurrances of tasks are readded to the schedule when an Anti task is deleted)
-22. Make and Test Use Cases
-23. Make sure code follows diagrams and requirements
+8. Implement exportSchedule() method in Schedule -- Connor
+9. Implement importSchedule() method in Schedule -- Kevin
+10. DONE: Implement checkOverlap() method in Schedule -- Vinson
+11. DONE: Implement all methods in Task and Transient -- Vinson
+12. DONE: Implement all methods in Anti -- Vinson
+13. DONE: Implement all methods in Recurring -- Vinson
+14. DONE: Implement command line interface stubs -- Vinson
+15. DONE: Implement create a task functionality from the command  -- Vinson
+16. DONE: Implement view a task for one day, one week, one month, or view all functionality from the command line -- Jonathan
+17. DONE: Implement delete a task functionality from the command line -- Jonathan
+18. DONE: Implement edit a task functionality from the command line -- Jonathan
+19. Implement write to file for one day, one week, one month, or write all functionality from the command line
+20. Implement delete a task functionality from the command line
+21. Implement read from file functionality from the command line
+22. Verify that Schedule validates all input (e.g., ensuring date is in correct format YYYY/MM/DD, ensuring Anti tasks are only created if they match a Recurring task, ensuring recurrances of tasks are readded to the schedule when an Anti task is deleted)
+23. Make and Test Use Cases
+24. Make sure code follows diagrams and requirements
