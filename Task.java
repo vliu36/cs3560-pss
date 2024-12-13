@@ -47,11 +47,14 @@ public class Task implements TaskInterface {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Type getType() {
+        return type;
+    }
     
     public double getStartTime() {
         return startTime;
     }
-
 
     public void setStartTime(double time) {
         this.startTime = time;
@@ -94,7 +97,6 @@ public class Task implements TaskInterface {
             return startTime + duration;
         }
     }
-
     public void printTask() {
         String startDateFormatted = String.format("%04d/%02d/%02d", startDate / 10000, (startDate % 10000) / 100, startDate % 100);
         System.out.printf("%s %s -- %s %s %s %s%n",
