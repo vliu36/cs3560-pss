@@ -14,7 +14,7 @@ Add DONE when you are done. </br>
 5. DONE: Create Transient class interface and Define Transient class -- Vinson
 6. Done (badly): Create Recurring class interface and Define Recurring class that inherits from Task -- Connor
 7. DONE: Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule -- Jonathan
-8. Implement exportSchedule() and importSchedule() methods in Schedule -- Kevin
+8. Implement exportSchedule() and importSchedule() methods in Schedule -- Connor
 9. DONE: Implement checkOverlap() method in Schedule -- Vinson
 10. DONE: Implement all methods in Task and Transient -- Vinson
 11. DONE: Implement all methods in Anti -- Vinson
