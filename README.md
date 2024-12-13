@@ -15,7 +15,7 @@ Add DONE when you are done. </br>
 6. Done (badly): Create Recurring class interface and Define Recurring class that inherits from Task -- Connor
 7. DONE: Implement addTask(), removeTask(), viewTask(), editTask(), printSchedule() methods in Schedule -- Jonathan
 8. DONE: Implement exportSchedule() method in Schedule -- Connor
-9. Implement importSchedule() method in Schedule -- Fabricio
+9. DONE: Implement importSchedule() method in Schedule -- Fabricio
 10. DONE: Implement checkOverlap() method in Schedule -- Vinson
 11. DONE: Implement all methods in Task and Transient -- Vinson
 12. DONE: Implement all methods in Anti -- Vinson
@@ -25,8 +25,8 @@ Add DONE when you are done. </br>
 16. DONE: Implement view a task for one day, one week, one month, or view all functionality from the command line -- Jonathan
 17. DONE: Implement delete a task functionality from the command line -- Jonathan
 18. DONE: Implement edit a task functionality from the command line -- Jonathan
-19. Implement write to file for one day, one week, one month, or write all functionality from the command line
-20. Implement read from file functionality from the command line
+19. DONE: Implement write to file for one day, one week, one month, or write all functionality from the command line
+20. DONE: Implement read from file functionality from the command line
 21. Verify that Schedule validates all input (e.g., ensuring date is in correct format YYYY/MM/DD, ensuring Anti tasks are only created if they match a Recurring task, ensuring recurrances of tasks are readded to the schedule when an Anti task is deleted) -- Fabricio
 22. Make and Test Use Cases -- Brian/Fabricio
 23. Make sure code follows diagrams and requirements -- Brian/Fabricio
