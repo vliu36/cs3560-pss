@@ -26,8 +26,4 @@ public interface ScheduleInterface {
 
     TaskInterface findTaskByName(String taskName);
 
-    void writeToFile(String filePath);
-
-    void readFromFile(String filePath);
-
 }

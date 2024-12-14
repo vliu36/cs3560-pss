@@ -6,3 +6,4 @@ public interface RecurringInterface extends TaskInterface{
     public void setFrequency(int frequency);
     public int getRecurringEndDate();
     public void setRecurringEndDate(int date);
+}

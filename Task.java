@@ -47,8 +47,9 @@ public class Task implements TaskInterface {
     public void setName(String name) {
         this.name = name;
     }
-    public String getType() {
-    return type.toString();
+
+    public Type getType() {
+        return type;
     }
     
     public double getStartTime() {
@@ -81,7 +82,7 @@ public class Task implements TaskInterface {
 
     public int getEndDate() {
         if (startTime + duration > 23.75) {
-            return startDate + 1;
+            return startDate++;
         }
         else {
             return startDate;
@@ -131,20 +132,18 @@ public class Task implements TaskInterface {
 
         return String.format("%02d:%02d%s", hours, minutes, isAm ? "am" : "pm");
     }
-    public static Task parseTask(String line) {
-        try {
-            String[] parts = line.split(";"); // Split the line into components
-            String name = parts[0];
-            String type = parts[1];
-            double startTime = Double.parseDouble(parts[2]);
-            double duration = Double.parseDouble(parts[3]);
-            int startDate = Integer.parseInt(parts[4]);
 
-            // Create and return a new Task object
-            return new Task(name, type, startTime, duration, startDate);
-        } catch (Exception e) {
-            System.out.println("Error parsing task: " + e.getMessage());
-            return null; // Return null if parsing fails
-        }
+    public String toJSON() {
+        StringBuilder json = new StringBuilder();
+        json.append("   {\n");
+        json.append("       \"Name\": \"" + name + "\",\n");
+        json.append("       \"Type\": \"" + type + "\",\n");
+        json.append("       \"Date\": " + startDate + ",\n");
+        json.append("       \"StartTime\": \"" + formatTime(startTime) + "\"    ,\n");
+        json.append("       \"Duration\": " + duration + "\n");
+        json.append("   }");
+
+        return json.toString();
+        
     }
 }
