@@ -1,6 +1,6 @@
-import java.util.ArrayList;
 import Interfaces.RecurringInterface;
 import Interfaces.TaskInterface;
+import java.util.ArrayList;
 
 public class Recurring extends Task implements RecurringInterface {
     private int frequency;
@@ -63,22 +63,6 @@ public class Recurring extends Task implements RecurringInterface {
     
             currDate = (year * 10000) + (month * 100) + day;
         }
-    }
-    @Override
-    public String toJSON() {
-        StringBuilder json = new StringBuilder();
-        json.append("   {\n");
-        json.append("       \"Name\": \"" + name + "\",\n");
-        json.append("       \"Type\": " + type + "\",\n");
-        json.append("       \"StartDate\": " + startDate + ",\n");
-        json.append("       \"StartTime\": " + startTime + ",\n");
-        json.append("       \"Duration\": " + duration + "\n");
-        json.append("       \"EndDate\": " + recurringEndDate + ",\n");
-        json.append("       \"Frequency\": " + frequency + ",\n");
-        json.append("   }");
-
-        return json.toString();
-        
     }
     
 }
