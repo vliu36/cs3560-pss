@@ -4,6 +4,8 @@ public interface ScheduleInterface {
 
     boolean addTask(String name, String type, double startTime, double duration, int startDate);
 
+    boolean addTask(String name, String type, double startTime, double duration, int startDate, int endDate, int frequency); // Overloaded for Recurring
+
     boolean removeTask(String name);
 
     boolean checkOverlap(TaskInterface task);
@@ -17,5 +19,13 @@ public interface ScheduleInterface {
     boolean importSchedule(String fileName);
 
     void printSchedule(String timeFrame);
-    
+
+    void viewTasksForTimeframe(int timeframe, int startDate);
+
+    TaskInterface findTaskByName(String taskName);
+
+    void writeToFile(String filePath);
+
+    void readFromFile(String filePath);
+
 }
