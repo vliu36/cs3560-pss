@@ -1,7 +1,5 @@
 package Interfaces;
 
-import java.util.List;
-
 public interface ScheduleInterface {
 
     boolean addTask(String name, String type, double startTime, double duration, int startDate);
@@ -25,5 +23,9 @@ public interface ScheduleInterface {
     void viewTasksForTimeframe(int timeframe, int startDate);
 
     TaskInterface findTaskByName(String taskName);
+
+    void writeToFile(String filePath);
+
+    void readFromFile(String filePath);
 
 }
