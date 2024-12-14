@@ -132,4 +132,18 @@ public class Task implements TaskInterface {
 
         return String.format("%02d:%02d%s", hours, minutes, isAm ? "am" : "pm");
     }
+
+    public String toJSON() {
+        StringBuilder json = new StringBuilder();
+        json.append("   {\n");
+        json.append("       \"Name\": \"" + name + "\",\n");
+        json.append("       \"Type\": \"" + type + "\",\n");
+        json.append("       \"Date\": " + startDate + ",\n");
+        json.append("       \"StartTime\": " + formatTime(startTime) + ",\n");
+        json.append("       \"Duration\": " + duration + "\n");
+        json.append("   }");
+
+        return json.toString();
+        
+    }
 }

@@ -2,6 +2,7 @@ import Interfaces.ScheduleInterface;
 import Interfaces.TaskInterface;
 
 import java.util.Scanner;
+import java.io.File;
 
 public class Driver {
   public static void main(String[] args) {
@@ -161,6 +162,22 @@ public class Driver {
           break;
         }
       }
+      else if (choice == 6){ //write schedule to file
+        System.out.print("Enter the file name: ");
+        name = scnr.nextLine();
+        if (writeFile(name)) {
+          schedule.exportSchedule(name + ".json");
+        }
+        else {
+          System.out.println("Error: Unable to write schedule to specified filename.");
+        }
+
+        System.out.println("\nReturn to main menu? (y/n)");
+        String returnChoice = scnr.next().toLowerCase();
+        if (!returnChoice.equals("y")) {
+          break;
+        }
+      }
       else if (choice == 8){
         break;
       }
@@ -281,7 +298,21 @@ private static double parseDuration(String durationInput) {
 
   // TODO: Implement write file functionality
   private static boolean writeFile(String fpath) {
-
+    try {
+      String filename = fpath + ".json";
+      File jsonFile = new File(filename);
+      if (jsonFile.createNewFile()) {
+        System.out.println("File Successfully Created: " + jsonFile.getAbsolutePath());
+        return true;
+      }
+      else {
+        System.out.println("File already exists.");
+        return false;
+      }
+    } catch (Exception e) {
+      System.out.println("Error: " + e.getMessage());
+    }
     return false;
   }
 }
+

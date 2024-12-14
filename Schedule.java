@@ -4,6 +4,8 @@ import java.io.*;
 import Interfaces.TaskInterface;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter; 
+import java.io.IOException;
 
 public class Schedule implements ScheduleInterface {
 
@@ -119,16 +121,28 @@ public class Schedule implements ScheduleInterface {
     }
 
     public boolean exportSchedule(String fileName) {
+        StringBuilder json = new StringBuilder();
+        json.append("[\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            TaskInterface task = tasks.get(i);
+            json.append(task.toJSON());
+            if (i < tasks.size() - 1) {
+                json.append(",\n");
+            }
+            else {
+                json.append("\n");
+            }
+
+        }
+        json.append("]");
+        try (FileWriter writer = new FileWriter(fileName)) { 
+            writer.write(json.toString());
+            return true;    
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
         return false;
-    //     Gson gson = new Gson();
-    //     try (Writer writer = new FileWriter(fileName)) {
-    //         gson.toJson(tasks, writer);
-    //         System.out.println("Schedule exported successfully to " + fileName);
-    //         return true;
-    //     } catch (IOException e) {
-    //         System.out.println("Error exporting schedule: " + e.getMessage());
-    //         return false;
-    //     }
+        
     }
 
     public boolean importSchedule(String fileName) {
