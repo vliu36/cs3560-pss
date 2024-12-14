@@ -1,6 +1,6 @@
+import java.util.ArrayList;
 import Interfaces.RecurringInterface;
 import Interfaces.TaskInterface;
-import java.util.ArrayList;
 
 public class Recurring extends Task implements RecurringInterface {
     private int frequency;

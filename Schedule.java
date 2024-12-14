@@ -1,5 +1,8 @@
+
 import Interfaces.AntiInterface;
 import Interfaces.ScheduleInterface;
+import Interfaces.RecurringInterface;
+import Interfaces.ScheduleInterface; // Import the interface.
 import Interfaces.TaskInterface;
 import java.io.*;
 import java.util.ArrayList;
@@ -31,7 +34,6 @@ public class Schedule implements ScheduleInterface {
             System.out.println("Error: Overlapping task. Cannot add.");
             return false;
         }
-
         tasks.add(newTask);
         return true;
     }
@@ -42,7 +44,6 @@ public class Schedule implements ScheduleInterface {
             System.out.println("Error: Invalid task type for recurring tasks.");
             return false;
         }
-
         // Create a Recurring task object
         Recurring newTask = new Recurring(name, type, startTime, duration, startDate, endDate, frequency);
 
@@ -61,6 +62,7 @@ public class Schedule implements ScheduleInterface {
         tasks.add(newTask);
         return true;
     }
+
 
     @Override
     public boolean removeTask(String name) {
@@ -92,6 +94,7 @@ public class Schedule implements ScheduleInterface {
         }
         return false; // No overlap
     }
+
 
     @Override
     public void viewTask(String name) {
@@ -431,4 +434,15 @@ public class Schedule implements ScheduleInterface {
         }
         return s;
     }
+    
+    public TaskInterface findTaskByName(String taskName) {
+    for (TaskInterface task : tasks) {
+        if (task.getName().equalsIgnoreCase(taskName)) {
+            return task; // Return the found task
+        }
+    }
+    return null; // Return null if no task is found
+}
+
+    
 }

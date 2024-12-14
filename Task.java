@@ -47,7 +47,6 @@ public class Task implements TaskInterface {
     public void setName(String name) {
         this.name = name;
     }
-
     public String getType() {
     return type.toString();
     }
@@ -132,7 +131,6 @@ public class Task implements TaskInterface {
 
         return String.format("%02d:%02d%s", hours, minutes, isAm ? "am" : "pm");
     }
-
     public static Task parseTask(String line) {
         try {
             String[] parts = line.split(";"); // Split the line into components

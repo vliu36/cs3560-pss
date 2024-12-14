@@ -1,5 +1,7 @@
 package Interfaces;
 
+import java.util.List;
+
 public interface ScheduleInterface {
 
     boolean addTask(String name, String type, double startTime, double duration, int startDate);

@@ -1,6 +1,7 @@
 import Interfaces.ScheduleInterface;
 import Interfaces.TaskInterface;
 import java.util.Scanner;
+import java.io.File;
 
 public class Driver {
   public static void main(String[] args) {
@@ -59,7 +60,6 @@ public class Driver {
             String blockedTaskName = scnr.nextLine();
 
             TaskInterface blockedTask = schedule.findTaskByName(blockedTaskName);
-
             if (blockedTask == null) {
                 System.out.println("\nError: Task to block not found.");
             } else {
@@ -80,7 +80,6 @@ public class Driver {
             int endDate = parseDate(endDateInput);
             System.out.print("\nEnter the frequency (in days): ");
             int frequency = scnr.nextInt();
-
             taskAdded = schedule.addTask(name, type, startTime, duration, startDate, endDate, frequency);
         } else {
             System.out.print("\nEnter the start time (24-hour format HH:MM): ");
@@ -92,10 +91,8 @@ public class Driver {
             System.out.print("\nEnter the date (YYYY/MM/DD): ");
             String dateInput = scnr.next();
             date = parseDate(dateInput);
-
             taskAdded = schedule.addTask(name, type, startTime, duration, date);
         }
-
         // Print the success/failure message
         if (taskAdded) {
             System.out.println("Task added successfully: " + name);
@@ -279,3 +276,4 @@ public class Driver {
     }
   }
 }
+
