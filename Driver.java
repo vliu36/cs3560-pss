@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Driver {
@@ -315,8 +316,7 @@ private static boolean readFile(String fpath, ScheduleInterface schedule) {
   
 // Writes the schedule to a file
 private static boolean writeFile(String fpath, ScheduleInterface schedule) {
-    try {
-        FileWriter writer = new FileWriter(fpath);
+    try (FileWriter writer = new FileWriter(fpath)) {
         List<TaskInterface> tasks = schedule.getAllTasks();
 
         for (TaskInterface task : tasks) {
@@ -329,11 +329,11 @@ private static boolean writeFile(String fpath, ScheduleInterface schedule) {
             writer.write("\n");
         }
 
-        writer.close();
         return true;
     } catch (IOException e) {
-        System.out.println("Error: Unable to write to file.");
+        System.err.println("Error: Unable to write to file. Details: " + e.getMessage());
         return false;
     }
+  }
 }
 
