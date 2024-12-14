@@ -139,7 +139,7 @@ public class Task implements TaskInterface {
         json.append("       \"Name\": \"" + name + "\",\n");
         json.append("       \"Type\": \"" + type + "\",\n");
         json.append("       \"Date\": " + startDate + ",\n");
-        json.append("       \"StartTime\": " + formatTime(startTime) + ",\n");
+        json.append("       \"StartTime\": \"" + formatTime(startTime) + "\"    ,\n");
         json.append("       \"Duration\": " + duration + "\n");
         json.append("   }");
 
