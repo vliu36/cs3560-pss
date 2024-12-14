@@ -1,6 +1,8 @@
 package Interfaces;
 
 public interface TaskInterface {
+
+    public String getType();
     // Each Type value defines the type of Task created
     // Recurring Task: CLASS, STUDY, SLEEP, EXERCISE, WORK, MEAL
     // Transient Task: VISIT, SHOPPING, APPOINTMENT
